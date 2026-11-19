@@ -1,0 +1,13 @@
+{
+  "name": "cakapp-frontend",
+  "version": "1.0.0",
+  "description": "Prototipe frontend interaktif CAK.APP",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve . -p 3000",
+    "dev": "npx -y serve . -p 3000"
+  },
+  "keywords": ["html", "css", "javascript", "prototype", "messaging-app", "cakap"],
+  "author": "",
+  "license": "ISC"
+}

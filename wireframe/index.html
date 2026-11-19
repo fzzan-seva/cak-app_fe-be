@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CAK.APP - Aplikasi Pesan Instan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Presentation Toolbar for quick testing & page switching -->
+  <aside class="demo-toolbar" id="demoToolbar">
+    <div class="toolbar-brand">
+      <span class="toolbar-badge">PROTOTIPE UI</span>
+      <strong>CAK.APP · Alur & Demo Fitur</strong>
+    </div>
+    <div class="toolbar-screens">
+      <button class="nav-tab active" data-target="screen-onboarding" title="Halaman 1: Onboarding">1. Onboarding</button>
+      <button class="nav-tab" data-target="screen-phone" title="Halaman 2: Input Nomor">2. Input Nomor</button>
+      <button class="nav-tab" data-target="screen-phone" data-modal="true" title="Halaman 3: Konfirmasi Nomor">3. Konfirmasi</button>
+      <button class="nav-tab" data-target="screen-verify" title="Halaman 4: Verifikasi nomor">4. Verifikasi OTP</button>
+      <button class="nav-tab" data-target="screen-chat-list" title="Halaman 5: Daftar Obrolan">5. Obrolan Utama</button>
+      <button class="nav-tab" data-target="screen-chat-room" title="Halaman 6: Ruang Obrolan">6. Design Team</button>
+      <button class="nav-tab" data-target="screen-thread" title="Halaman 7: Dedicated Thread">7. Dedicated Thread</button>
+      <button class="nav-tab" data-target="screen-tasks" title="Halaman 8: Daftar Tugas">8. Daftar Tugas</button>
+      <button class="nav-tab" data-target="screen-saved" title="Halaman 9: Pesan Tersimpan">9. Pesan Tersimpan</button>
+      <button class="nav-tab" data-action="profile" title="Halaman 10: Profil">10. Profil</button>
+    </div>
+    <div class="toolbar-tools">
+      <button id="toggleDeviceFrame" class="toolbar-btn" title="Ganti Mode Tampilan (Mobile Frame / Layar Penuh)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        <span>Toggle Frame</span>
+      </button>
+      <button type="button" class="header-icon-btn mobile-invite-btn" id="mobileInviteBtn" aria-label="Undang anggota">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M19 8v6m-3-3h6"/>
+        </svg>
+      </button>
+      <button id="resetDemoBtn" class="toolbar-btn" title="Reset ke Halaman Awal">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        <span>Reset Flow</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Mobile Device Wrapper -->
+  <main class="device-wrapper">
+    <div class="device-frame" id="deviceFrame">
+      
+      <!-- Top Status Bar (Mobile Header) -->
+      <div class="status-bar">
+        <span class="status-time" id="statusClock">09:41</span>
+        <div class="status-notch">
+          <div class="speaker"></div>
+          <div class="front-camera"></div>
+        </div>
+        <div class="status-icons">
+          <!-- Signal Icon -->
+          <svg width="15" height="13" viewBox="0 0 18 14" fill="currentColor">
+            <rect x="0" y="10" width="3" height="4" rx="0.5"/>
+            <rect x="4.5" y="7" width="3" height="7" rx="0.5"/>
+            <rect x="9" y="4" width="3" height="10" rx="0.5"/>
+            <rect x="13.5" y="0" width="3" height="14" rx="0.5"/>
+          </svg>
+          <!-- Wifi Icon -->
+          <svg width="15" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20" stroke-width="3"/>
+          </svg>
+          <!-- Battery Icon -->
+          <svg width="20" height="11" viewBox="0 0 25 12" fill="currentColor">
+            <rect x="0" y="0" width="22" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <rect x="2" y="2" width="16" height="8" rx="1.5"/>
+            <path d="M23 4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- APP SCREENS CONTAINER -->
+      <div class="screens-viewport">
+
+        <!-- ==============================================
+             SCREEN 1: ONBOARDING / WELCOME (Image 2)
+             ============================================== -->
+        <section class="app-screen screen-onboarding active" id="screen-onboarding">
+          <div class="onboarding-top-accent">
+            <div class="crescent-icon" title="CAK.APP">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#47695a" opacity="0.85"/>
+                <circle cx="17" cy="7" r="1.5" fill="#3b6e58"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="onboarding-hero">
+            <!-- Large Soft Green Badge with Chat Bubbles -->
+            <div class="hero-badge-glow">
+              <div class="hero-badge-circle">
+                <div class="chat-bubbles-art">
+                  <div class="bubble-large">
+                    <span class="bubble-line line-1"></span>
+                    <span class="bubble-line line-2"></span>
+                  </div>
+                  <div class="bubble-small">
+                    <span class="bubble-line line-3"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h1 class="hero-title">CAK.APP</h1>
+            <p class="hero-desc">
+              Aplikasi pesan instan tercepat.<br>
+              Kolaborasi kerja gratis dan aman.
+            </p>
+
+            <!-- Carousel Pagination Dots -->
+            <div class="pagination-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <div class="onboarding-footer">
+            <!-- Clickable Button Area to advance to Phone Entry -->
+            <button type="button" class="btn-primary-pill action-btn-area" id="btnStartChat" data-next="screen-phone">
+              <span class="btn-text">Mulai Percakapan</span>
+            </button>
+            <div class="home-indicator"></div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             SCREEN 2: PHONE NUMBER ENTRY (Image 1)
+             ============================================== -->
+        <section class="app-screen screen-phone" id="screen-phone">
+          <!-- App Header -->
+          <header class="app-topbar">
+            <button type="button" class="topbar-btn btn-back action-btn-area" id="backFromPhone" data-next="screen-onboarding" aria-label="Kembali">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <h2 class="topbar-title">Masukkan Nomor Telepon</h2>
+            <button type="button" class="topbar-avatar" data-open-profile aria-label="Buka profil pengguna">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </button>
+          </header>
+
+          <div class="screen-content scrollable">
+            <!-- Icon Chat & Sync Circle -->
+            <div class="flow-icon-wrapper">
+              <div class="flow-icon-badge">
+                <div class="chat-icon-pair">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="3" width="15" height="12" rx="2.5" fill="#325e4c"/>
+                    <rect x="7" y="8" width="15" height="12" rx="2.5" fill="#4d7c68" fill-opacity="0.95"/>
+                    <path d="M12 17l-3 3v-3h3z" fill="#4d7c68"/>
+                  </svg>
+                </div>
+                <div class="flow-sync-badge">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 2v6h-6"></path>
+                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+                    <path d="M3 22v-6h6"></path>
+                    <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Titles -->
+            <div class="flow-text-header">
+              <h3 class="flow-heading">Nomor telepon Anda</h3>
+              <p class="flow-subheading">Mohon konfirmasi kode negara dan masukkan nomor telepon Anda.</p>
+            </div>
+
+            <!-- Country Selection Card -->
+            <div class="input-card country-card" id="countryCodeCard" role="button" tabindex="0" aria-label="Kode negara Indonesia, +62">
+              <div class="country-left">
+                <div class="country-flag-badge">ID</div>
+                <div class="country-info">
+                  <span class="card-label">Kode negara</span>
+                  <span class="card-value">Indonesia</span>
+                </div>
+              </div>
+              <div class="country-code-pill">
+                <span>+62</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Phone Number Input Card -->
+            <div class="input-card phone-card">
+              <div class="phone-card-body">
+                <label for="phoneNumberInput" class="card-label">Nomor telepon</label>
+                <div class="phone-input-row">
+                  <span class="phone-code-prefix">+62</span>
+                  <div class="phone-divider"></div>
+                  <div class="phone-display-container">
+                    <input type="tel" id="phoneNumberInput" class="phone-display-text" value="81572062336" inputmode="numeric" autocomplete="tel-national" placeholder="812...">
+                    <span class="blinking-caret" id="phoneCaret"></span>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn-clear action-btn-area" id="clearPhoneBtn" aria-label="Hapus Nomor">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Encrypted badge note -->
+            <div class="encrypted-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#557065" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+              <span>Nomor hanya digunakan untuk simulasi verifikasi</span>
+            </div>
+
+            <!-- Floating Next Action Button (Green Circle with Arrow) -->
+            <div class="floating-next-container">
+              <button type="button" class="btn-floating-circle action-btn-area" id="btnPhoneNext" data-action="open-phone-modal" aria-label="Lanjutkan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Soft Dialpad / Numeric Keypad -->
+            <div class="soft-keypad" id="phoneKeypad">
+              <div class="keypad-row">
+                <button type="button" class="keypad-key" data-digit="1"><span class="key-num">1</span></button>
+                <button type="button" class="keypad-key" data-digit="2"><span class="key-num">2</span><span class="key-sub">ABC</span></button>
+                <button type="button" class="keypad-key" data-digit="3"><span class="key-num">3</span><span class="key-sub">DEF</span></button>
+              </div>
+              <div class="keypad-row">
+                <button type="button" class="keypad-key" data-digit="4"><span class="key-num">4</span><span class="key-sub">GHI</span></button>
+                <button type="button" class="keypad-key" data-digit="5"><span class="key-num">5</span><span class="key-sub">JKL</span></button>
+                <button type="button" class="keypad-key" data-digit="6"><span class="key-num">6</span><span class="key-sub">MNO</span></button>
+              </div>
+              <div class="keypad-row">
+                <button type="button" class="keypad-key" data-digit="7"><span class="key-num">7</span><span class="key-sub">PQRS</span></button>
+                <button type="button" class="keypad-key" data-digit="8"><span class="key-num">8</span><span class="key-sub">TUV</span></button>
+                <button type="button" class="keypad-key" data-digit="9"><span class="key-num">9</span><span class="key-sub">WXYZ</span></button>
+              </div>
+              <div class="keypad-row">
+                <span class="keypad-key key-utility key-placeholder" aria-hidden="true"></span>
+                <button type="button" class="keypad-key" data-digit="0"><span class="key-num">0</span><span class="key-sub">+</span></button>
+                <button type="button" class="keypad-key key-utility" id="phoneBackspaceBtn" aria-label="Backspace">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d3748" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                    <line x1="18" y1="9" x2="12" y2="15"></line>
+                    <line x1="12" y1="9" x2="18" y2="15"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Disclaimer Footer -->
+            <p class="terms-disclaimer">
+              Dengan mendaftar, Anda menyetujui Ketentuan Layanan CAK.APP
+            </p>
+          </div>
+
+          <!-- ==============================================
+               MODAL: CONFIRMATION MODAL (Image 3)
+               ============================================== -->
+          <div class="modal-backdrop" id="phoneConfirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-card">
+              <h4 class="modal-title" id="modalTitle">Apakah nomor sudah benar?</h4>
+              <p class="modal-phone" id="modalPhoneDisplay">+62 815 720623 36</p>
+              
+              <div class="modal-actions">
+                <!-- Action Edit (Close Modal) -->
+                <button type="button" class="modal-action-btn btn-edit action-btn-area" id="modalBtnEdit">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                  <span>Edit</span>
+                </button>
+
+                <!-- Action Ya (Advance to SMS verification) -->
+                <button type="button" class="modal-action-btn btn-confirm action-btn-area" id="modalBtnConfirm">
+                  <span>Ya</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             SCREEN 4: SMS / CODE VERIFICATION
+             ============================================== -->
+        <section class="app-screen screen-verify" id="screen-verify">
+          <!-- App Header -->
+          <header class="app-topbar">
+            <button type="button" class="topbar-btn btn-back action-btn-area" id="backFromVerify" data-next="screen-phone" aria-label="Kembali ke nomor telepon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <h2 class="topbar-title">Verifikasi SMS</h2>
+            <button type="button" class="topbar-avatar" data-open-profile aria-label="Buka profil pengguna">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </button>
+          </header>
+
+          <div class="screen-content scrollable">
+            <!-- Love Envelope Illustration -->
+            <div class="flow-icon-wrapper">
+              <div class="envelope-badge-card">
+                <div class="envelope-card-inner">
+                  <svg width="105" height="75" viewBox="0 0 120 90" fill="none">
+                    <!-- Envelope back & fold lines -->
+                    <rect x="10" y="15" width="100" height="65" rx="10" fill="#f4fbf7" stroke="#e0ece6" stroke-width="2"/>
+                    <path d="M12 18L60 55L108 18" stroke="#d5e5dd" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M12 78L45 48" stroke="#e6f0eb" stroke-width="2"/>
+                    <path d="M108 78L75 48" stroke="#e6f0eb" stroke-width="2"/>
+                    <!-- Red Heart Seal in the Center -->
+                    <path d="M60 49 C57 41, 46 41, 46 48 C46 54, 53 60, 60 67 C67 60, 74 54, 74 48 C74 41, 63 41, 60 49 Z" 
+                          fill="#ff365f" filter="drop-shadow(0 4px 6px rgba(255, 54, 95, 0.28))"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Title & Explanations -->
+            <div class="flow-text-header">
+              <h3 class="flow-heading">Kode Verifikasi</h3>
+              <p class="flow-subheading verification-sub">
+                Masukkan kode 6 digit untuk nomor<br>
+                <strong class="user-phone-target" id="verifyTargetPhone">+62 815 720 623 36</strong>.<br>
+                Pengiriman SMS belum aktif; gunakan kode apa saja untuk demo.
+              </p>
+            </div>
+
+            <!-- OTP Code Input Area with Blinking Caret -->
+            <div class="otp-container" id="otpBoxContainer">
+              <div class="otp-box active" data-index="0"><span class="otp-val"></span><span class="blinking-caret"></span></div>
+              <div class="otp-box" data-index="1"><span class="otp-val"></span></div>
+              <div class="otp-box" data-index="2"><span class="otp-val"></span></div>
+              <div class="otp-box" data-index="3"><span class="otp-val"></span></div>
+              <div class="otp-box" data-index="4"><span class="otp-val"></span></div>
+              <div class="otp-box" data-index="5"><span class="otp-val"></span></div>
+            </div>
+
+            <!-- Resend Action Link -->
+            <div class="resend-row">
+              <button type="button" class="btn-resend action-btn-area" id="resendCodeBtn">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span id="resendLabel">Kirim ulang sekarang</span>
+              </button>
+            </div>
+
+            <!-- Change phone number -->
+            <div class="change-email-row">
+              <button type="button" class="btn-pill-light action-btn-area" id="btnChangePhone" data-next="screen-phone">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+                </svg>
+                <span>Ganti nomor telepon</span>
+              </button>
+            </div>
+
+            <!-- Soft Dialpad / Numeric Keypad for OTP -->
+            <div class="soft-keypad" id="otpKeypad">
+              <div class="keypad-row">
+                <button type="button" class="keypad-key" data-digit="1"><span class="key-num">1</span></button>
+                <button type="button" class="keypad-key" data-digit="2"><span class="key-num">2</span><span class="key-sub">ABC</span></button>
+                <button type="button" class="keypad-key" data-digit="3"><span class="key-num">3</span><span class="key-sub">DEF</span></button>
+              </div>
+              <div class="keypad-row">
+                <button type="button" class="keypad-key" data-digit="4"><span class="key-num">4</span><span class="key-sub">GHI</span></button>
+                <button type="button" class="keypad-key" data-digit="5"><span class="key-num">5</span><span class="key-sub">JKL</span></button>
+                <button type="button" class="keypad-key" data-digit="6"><span class="key-num">6</span><span class="key-sub">MNO</span></button>
+              </div>
+              <div class="keypad-row">
+                <button type="button" class="keypad-key" data-digit="7"><span class="key-num">7</span><span class="key-sub">PQRS</span></button>
+                <button type="button" class="keypad-key" data-digit="8"><span class="key-num">8</span><span class="key-sub">TUV</span></button>
+                <button type="button" class="keypad-key" data-digit="9"><span class="key-num">9</span><span class="key-sub">WXYZ</span></button>
+              </div>
+              <div class="keypad-row">
+                <div class="keypad-key key-utility key-placeholder"></div>
+                <button type="button" class="keypad-key" data-digit="0"><span class="key-num">0</span><span class="key-sub">+</span></button>
+                <button type="button" class="keypad-key key-utility" id="otpBackspaceBtn" aria-label="Backspace">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d3748" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                    <line x1="18" y1="9" x2="12" y2="15"></line>
+                    <line x1="12" y1="9" x2="18" y2="15"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             SCREEN 5: MAIN CHAT LIST
+             ============================================== -->
+        <section class="app-screen screen-chat-list" id="screen-chat-list">
+          <!-- Chat List Header -->
+          <header class="chatlist-header">
+            <div class="chatlist-header-actions">
+              <button type="button" class="icon-btn-minimal" id="mobileChatListMenuBtn" aria-label="Menu obrolan" aria-expanded="false">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                  <path d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+              </button>
+              <button type="button" class="chatlist-add-btn" id="btnPencilWrite" aria-label="Mulai obrolan baru">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </button>
+            </div>
+            <div class="chatlist-search-bar">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2.4" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="search" class="search-input" id="chatListSearchInput" placeholder="Cari Obrolan" aria-label="Cari obrolan">
+            </div>
+          </header>
+
+          <nav class="chatlist-filter-tabs" aria-label="Filter obrolan">
+            <button type="button" class="chatlist-filter active" data-chat-filter="all" aria-pressed="true">All Chats</button>
+            <button type="button" class="chatlist-filter" data-chat-filter="channels" aria-pressed="false">Channels</button>
+            <button type="button" class="chatlist-filter" data-chat-filter="directs" aria-pressed="false">Directs</button>
+            <button type="button" class="chatlist-filter" data-chat-filter="work" aria-pressed="false">Work</button>
+          </nav>
+
+          <!-- Chat Conversation List -->
+          <div class="screen-content chatlist-body scrollable">
+            <!-- Item 1: Rina Wulandari -->
+            <div class="chat-row action-btn-area" data-category="directs">
+              <div class="avatar-box avatar-circle bg-emerald">
+                <img class="avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23e0efe7'/%3E%3Ccircle cx='40' cy='32' r='14' fill='%232a5a48'/%3E%3Cpath d='M20 68c0-13 9-18 20-18s20 5 20 18' fill='%2320493a'/%3E%3C/svg%3E" alt="Rina Wulandari">
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Rina Wulandari</span>
+                  <span class="chat-timestamp">10:54</span>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet text-with-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    Foto dokumen.jpg
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3: Tim Marketing -->
+            <div class="chat-row action-btn-area" data-category="work">
+              <div class="avatar-box avatar-circle bg-dark-team">
+                <div class="team-badge-text"><span class="badge-accent">TM</span><span class="badge-sub">MARKETING</span></div>
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Tim Marketing</span>
+                  <span class="chat-timestamp">10:32</span>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet">Budi Santoso: Laporan kampanye sudah si...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 4: Andi Pratama -->
+            <div class="chat-row action-btn-area" data-category="directs">
+              <div class="avatar-box avatar-circle bg-salmon">
+                <span class="avatar-initials">A</span>
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <div class="name-star-row">
+                    <span class="chat-sender-name font-bold">Andi Pratama</span>
+                    <span class="star-icon">★</span>
+                  </div>
+                  <div class="status-time-row">
+                    <span class="read-ticks">✓✓</span>
+                    <span class="chat-timestamp">09:56</span>
+                  </div>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet">File presentasi sudah saya revisi ya</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 5: Budi Santoso -->
+            <div class="chat-row action-btn-area" data-category="directs">
+              <div class="avatar-box avatar-circle bg-avatar-photo">
+                <img class="avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23f2ede6'/%3E%3Ccircle cx='40' cy='32' r='14' fill='%23664d38'/%3E%3Cpath d='M22 68c0-12 8-16 18-16s18 4 18 16' fill='%23453324'/%3E%3C/svg%3E" alt="Budi Santoso">
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Budi Santoso</span>
+                  <div class="status-time-row">
+                    <span class="read-ticks">✓✓</span>
+                    <span class="chat-timestamp">09:53</span>
+                  </div>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet">Siap, kita jadwalkan rapat besok</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 6: Dimas Arya -->
+            <div class="chat-row action-btn-area" data-category="directs">
+              <div class="avatar-box avatar-circle bg-avatar-suit">
+                <img class="avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23e8edf5'/%3E%3Ccircle cx='40' cy='32' r='14' fill='%232b3f5c'/%3E%3Cpath d='M20 68c0-13 9-18 20-18s20 5 20 18' fill='%23192639'/%3E%3C/svg%3E" alt="Dimas Arya">
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Dimas Arya</span>
+                  <div class="status-time-row">
+                    <span class="read-ticks">✓✓</span>
+                    <span class="chat-timestamp">09:41</span>
+                  </div>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet">Sudah saya cek tadi ya, aman</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 7: Tim Desain UI/UX -->
+            <div class="chat-row action-btn-area chat-row-highlight" id="rowDesignTeam" data-next="screen-chat-room" data-category="channels">
+              <div class="avatar-box avatar-studio">
+                <div class="studio-logo-shapes">
+                  <span class="sq-orange"></span>
+                  <span class="sq-teal"></span>
+                </div>
+                <span class="studio-text">DESIGN STUDIO</span>
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Tim Desain UI/UX</span>
+                  <div class="status-time-row">
+                    <span class="read-ticks">✓✓</span>
+                    <span class="chat-timestamp">09:39</span>
+                  </div>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet"><strong>Anda:</strong> File desain Figma sudah diunggah</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 8: Dev Team Core -->
+            <div class="chat-row action-btn-area" data-category="work">
+              <div class="avatar-box avatar-circle bg-purple">
+                <span class="avatar-initials">D</span>
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Dev Team Core</span>
+                  <div class="status-right-group">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    <span class="chat-timestamp">37</span>
+                  </div>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet snippet-with-sender">
+                    <span class="mini-avatar"></span>
+                    Fajar: Deployment server staging ...
+                  </span>
+                  <span class="chat-unread-badge badge-green">7</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 9: Project Alpha -->
+            <div class="chat-row action-btn-area" id="rowProjectAlpha" data-category="work">
+              <div class="avatar-box avatar-circle bg-mint">
+                <span class="avatar-initials font-bold">PA</span>
+              </div>
+              <div class="chat-main-info">
+                <div class="chat-row-top">
+                  <span class="chat-sender-name font-bold">Project Alpha</span>
+                  <span class="chat-timestamp">Wed</span>
+                </div>
+                <div class="chat-row-bottom">
+                  <span class="chat-snippet">Catatan ringkasan sprint review ke-4</span>
+                  <span class="chat-unread-badge badge-soft">8</span>
+                </div>
+              </div>
+            </div>
+            <p class="chatlist-empty-state" id="chatListEmpty" hidden>Tidak ada obrolan untuk filter ini.</p>
+          </div>
+
+          <!-- Bottom Navigation Bar -->
+          <nav class="chatlist-bottom-nav" aria-label="Navigasi utama">
+            <button type="button" class="nav-bottom-item active" id="navChats">
+              <div class="nav-icon-badge-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                </svg>
+                <span class="nav-badge-pill">9</span>
+              </div>
+              <span>Obrolan</span>
+            </button>
+            <button type="button" class="nav-bottom-item" id="navTasks" data-target="screen-tasks">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="3" width="16" height="18" rx="2"/>
+                <path d="M8 8h8M8 12h8M8 16h5"/>
+              </svg>
+              <span>Tugas</span>
+            </button>
+            <button type="button" class="nav-bottom-item" id="navProfile">
+              <div class="nav-profile-avatar">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23386b56'/%3E%3Ccircle cx='40' cy='32' r='14' fill='%23ffffff'/%3E%3Cpath d='M20 68c0-13 9-18 20-18s20 5 20 18' fill='%23ffffff'/%3E%3C/svg%3E" alt="Profil">
+              </div>
+              <span>Profil</span>
+            </button>
+          </nav>
+        </section>
+
+        <!-- ==============================================
+             SCREEN 6: CHAT ROOM / "DESIGN TEAM"
+             ============================================== -->
+        <section class="app-screen screen-chat-room" id="screen-chat-room">
+          <!-- Chat Room Topbar -->
+          <header class="chatroom-header">
+            <div class="chatroom-header-left">
+              <button type="button" class="topbar-btn btn-back action-btn-area" id="backFromChatRoom" data-next="screen-chat-list" aria-label="Kembali ke Daftar Obrolan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </button>
+              <div class="chatroom-avatar-wrap">
+                <div class="group-avatar bg-emerald font-bold">DT</div>
+                <span class="online-indicator-dot"></span>
+              </div>
+              <div class="chatroom-title-box">
+                <div class="group-name-row">
+                  <h2 class="chatroom-name">Design Team</h2>
+                  <svg class="verified-icon" width="16" height="16" viewBox="0 0 24 24" fill="#386b56">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+                <span class="chatroom-status">8 anggota, 5 online</span>
+              </div>
+            </div>
+            <div class="chatroom-header-right">
+              <button type="button" class="header-icon-btn" id="mobileMessageSearchBtn" aria-label="Cari Pesan">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+              <button type="button" class="header-icon-btn" id="mobileChatMenuBtn" aria-label="Menu Obrolan" aria-expanded="false">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="5" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/>
+                </svg>
+              </button>
+            </div>
+          </header>
+          <div class="message-search-inline" id="mobileMessageSearchBar" hidden>
+            <input type="search" id="mobileMessageSearchInput" placeholder="Cari di percakapan" aria-label="Cari di percakapan">
+            <button type="button" data-close-message-search="mobile" aria-label="Tutup pencarian">×</button>
+          </div>
+
+          <!-- Chat Room Messages Container (with Telegram/WhatsApp style doodle wallpaper) -->
+          <div class="screen-content chatroom-body scrollable">
+            <!-- Date Pill -->
+            <div class="chat-date-divider">
+              <span class="date-pill">Hari ini</span>
+            </div>
+
+            <!-- Message 1: Alice (Incoming) -->
+            <div class="msg-bubble-wrap incoming">
+              <div class="msg-bubble">
+                <div class="msg-sender-header sender-alice">
+                  <span class="sender-avatar-badge bg-light-green">A</span>
+                  <span class="sender-name">Alice</span>
+                </div>
+                <p class="msg-text">Hey Team! What's the latest update on the dashboard design?</p>
+                <span class="msg-timestamp">12:14</span>
+              </div>
+            </div>
+
+            <!-- Message 2: David (Incoming) -->
+            <div class="msg-bubble-wrap incoming">
+              <div class="msg-bubble">
+                <div class="msg-sender-header sender-david">
+                  <span class="sender-avatar-badge bg-peach">D</span>
+                  <span class="sender-name">David</span>
+                </div>
+                <p class="msg-text">I think Bob was working on a mockup last night.</p>
+                <span class="msg-timestamp">12:15</span>
+              </div>
+            </div>
+
+            <!-- Message 3: Outgoing (User) with Figma Mockup & Thread Link -->
+            <div class="msg-bubble-wrap outgoing">
+              <div class="msg-bubble msg-bubble-green">
+                <p class="msg-text">
+                  I'll start reviewing this afternoon!<br>
+                  Dashboard mockup v4 sudah divalidasi.
+                </p>
+                <button type="button" class="message-task-action" data-create-task data-task-source="Dashboard mockup v4 sudah divalidasi.">
+                  <span aria-hidden="true">＋</span> Jadikan tugas
+                </button>
+                <button type="button" class="message-save-action" data-save-message data-save-key="design-root-mobile" data-save-chat="Design Team" data-save-text="Dashboard mockup v4 sudah divalidasi.">☆ Simpan pesan</button>
+
+                <!-- Tablet / Screen Mockup Attachment Preview -->
+                <div class="mockup-preview-card">
+                  <div class="tablet-device-art">
+                    <svg viewBox="0 0 380 180" class="tablet-svg" preserveAspectRatio="xMidYMid meet">
+                      <rect x="12" y="12" width="356" height="156" rx="14" fill="#ffffff" stroke="#172033" stroke-width="3"/>
+                      <rect x="28" y="28" width="52" height="9" rx="3" fill="#087b59"/>
+                      <rect x="90" y="28" width="40" height="9" rx="3" fill="#e2e8f0"/>
+                      <rect x="140" y="28" width="34" height="9" rx="3" fill="#27344b"/>
+                      <path d="M28 132H350" stroke="#e7ece9" stroke-width="2"/>
+                      <path d="M28 132C70 130 82 114 118 116S166 126 210 101 270 72 298 89 329 126 350 72" fill="rgba(8,123,89,.1)" stroke="#15563f" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <span class="file-tag-badge">dashboard_mockup_v4.fig</span>
+                  </div>
+                </div>
+
+                <!-- Thread entry button -->
+                <button type="button" class="thread-link-bar action-btn-area" id="btnOpenThread" data-next="screen-thread">
+                  <div class="thread-link-left">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#386b56" stroke-width="2.2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <!-- Stacked Avatars: B, D, A -->
+                    <div class="stacked-thread-avatars">
+                      <span class="st-avatar bg-purple">B</span>
+                      <span class="st-avatar bg-peach">D</span>
+                      <span class="st-avatar bg-light-green">A</span>
+                    </div>
+                    <span class="thread-replies-count">3 balasan</span>
+                  </div>
+                  <div class="thread-link-right">
+                    <span>Lihat</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </button>
+
+                <div class="msg-footer-outgoing">
+                  <span class="msg-timestamp">12:30</span>
+                  <span class="read-ticks-green">✓✓</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Message 4: Alice (Incoming) -->
+            <div class="msg-bubble-wrap incoming">
+              <div class="msg-bubble">
+                <div class="msg-sender-header sender-alice">
+                  <span class="sender-avatar-badge bg-light-green">A</span>
+                  <span class="sender-name">Alice</span>
+                </div>
+                <p class="msg-text">Perfect, let me know if you need help.</p>
+                <span class="msg-timestamp">12:35</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Chat Message Input Bar -->
+          <footer class="chatroom-input-bar">
+            <button type="button" class="chat-input-btn" data-insert-emoji="mainChatInput" aria-label="Emoji">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </button>
+            <input type="text" class="chat-input-field" placeholder="Tulis pesan..." id="mainChatInput">
+            <button type="button" class="chat-input-btn" data-choose-file="mobileAttachmentInput" aria-label="Lampiran">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2.2" stroke-linecap="round">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+              </svg>
+            </button>
+            <button type="button" class="chat-input-btn" data-voice-note="mainChatInput" aria-label="Pesan Suara">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2.2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>
+              </svg>
+            </button>
+            <button type="button" class="chat-send-btn action-btn-area" id="btnSendMainMessage" aria-label="Kirim Pesan">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </footer>
+          <input type="file" id="mobileAttachmentInput" hidden aria-label="Pilih lampiran">
+        </section>
+
+        <!-- ==============================================
+             SCREEN 7: DEDICATED THREAD
+             ============================================== -->
+        <section class="app-screen screen-thread" id="screen-thread">
+          <!-- Thread Topbar -->
+          <header class="thread-header">
+            <div class="thread-header-left">
+              <button type="button" class="topbar-btn btn-back action-btn-area" id="backFromThread" data-next="screen-chat-room" aria-label="Kembali ke Ruang Obrolan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </button>
+              <div class="thread-title-wrap">
+                <h2 class="thread-main-title">Dedicated Thread</h2>
+                <span class="thread-sub-title">hybrid workspace</span>
+              </div>
+            </div>
+            <div class="thread-header-right">
+              <button type="button" class="header-icon-btn" id="mobileThreadMenuBtn" aria-label="Menu Thread" aria-expanded="false">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="5" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/>
+                </svg>
+              </button>
+              <button type="button" class="topbar-avatar thread-avatar" data-open-profile aria-label="Buka profil pengguna">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </button>
+            </div>
+          </header>
+
+
+
+          <!-- Thread Body Scrollable Area (with Doodle Wallpaper) -->
+          <div class="screen-content thread-body scrollable">
+            <!-- Root Topic Message Card -->
+            <div class="root-topic-card">
+              <div class="root-card-header">
+                <div class="root-author-info">
+                  <div class="avatar-box avatar-circle bg-emerald">
+                    <span class="avatar-initials font-bold text-white">A</span>
+                  </div>
+                  <div class="author-details">
+                    <span class="author-name font-bold">Anda</span>
+                    <span class="badge-author-role">Penulis</span>
+                  </div>
+                </div>
+                <span class="root-time">12:30</span>
+              </div>
+
+              <div class="root-message-text">
+                <p>I'll start reviewing this afternoon!<br>Dashboard mockup v4 sudah divalidasi.</p>
+              </div>
+
+              <!-- Figma File Attachment Box -->
+              <div class="figma-file-card">
+                <div class="figma-icon-badge">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="3" width="20" height="14" rx="2" stroke="#2e6955" stroke-width="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21" stroke="#2e6955" stroke-width="2"/>
+                    <line x1="12" y1="17" x2="12" y2="21" stroke="#2e6955" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="figma-info">
+                  <span class="figma-filename font-bold">mockup-dashboard-v4.fig</span>
+                  <span class="figma-meta">Figma Design System • 14.2 MB</span>
+                </div>
+                <button type="button" class="btn-download-file" id="downloadMockupBtn" aria-label="Unduh Berkas">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a5568" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Reactions on Root Post -->
+              <div class="root-actions-row">
+                <div class="reaction-row">
+                  <button type="button" class="reaction-pill" data-reaction="🔥" aria-pressed="false">🔥 4</button>
+                  <button type="button" class="reaction-pill" data-reaction="🎯" aria-pressed="false">🎯 2</button>
+                </div>
+                <button type="button" class="message-save-action" data-save-message data-save-key="design-root-thread" data-save-chat="Design Team" data-save-text="Dashboard mockup v4 sudah divalidasi.">☆ Simpan pesan</button>
+              </div>
+            </div>
+
+            <!-- Thread Count Separator Badge -->
+            <div class="thread-divider-wrap">
+              <span class="thread-badge-pill">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                3 Balasan
+              </span>
+            </div>
+
+            <!-- Thread Reply 1: Bob -->
+            <div class="thread-reply-row">
+              <div class="avatar-box avatar-circle bg-purple">
+                <span class="avatar-initials">B</span>
+              </div>
+              <div class="reply-bubble">
+                <div class="reply-top">
+                  <span class="reply-author font-bold">Bob</span>
+                  <span class="reply-time">11:30</span>
+                </div>
+                <p class="reply-text">I think we should move the CTA button to the center.</p>
+              </div>
+            </div>
+
+            <!-- Thread Reply 2: Sarah -->
+            <div class="thread-reply-row">
+              <div class="avatar-box avatar-circle bg-salmon">
+                <span class="avatar-initials">S</span>
+              </div>
+              <div class="reply-bubble">
+                <div class="reply-top">
+                  <span class="reply-author font-bold text-coral">Sarah</span>
+                  <span class="reply-time">11:32</span>
+                </div>
+                <p class="reply-text">Agree, it gets lost on the left.</p>
+                <div class="reply-reactions">
+                  <span class="reaction-pill-sm">👀 1</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thread Reply 3: David -->
+            <div class="thread-reply-row">
+              <div class="avatar-box avatar-circle bg-blue">
+                <span class="avatar-initials">D</span>
+              </div>
+              <div class="reply-bubble">
+                <div class="reply-top">
+                  <span class="reply-author font-bold">David</span>
+                  <span class="reply-time">11:36</span>
+                </div>
+                <p class="reply-text">Centered looks way better on mobile viewport.</p>
+                <div class="reply-reactions">
+                  <span class="reaction-pill-sm">💯 2</span>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <!-- Bottom Thread Reply Input Bar -->
+          <footer class="thread-input-bar">
+            <button type="button" class="thread-input-btn btn-plus" data-create-thread-task aria-label="Tambah tugas dari thread">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+            <input type="text" class="thread-input-field" placeholder="Balas dalam thread..." id="threadReplyInput">
+            <button type="button" class="thread-input-btn" data-insert-emoji="threadReplyInput" aria-label="Emoji">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </button>
+            <button type="button" class="chat-send-btn action-btn-area" id="btnSendThreadReply" aria-label="Kirim Balasan">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </footer>
+        </section>
+
+        <section class="app-screen screen-tasks" id="screen-tasks">
+          <header class="tasks-header">
+            <button type="button" class="topbar-btn btn-back action-btn-area" data-next="screen-chat-list" aria-label="Kembali ke daftar obrolan">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <div>
+              <h1>Daftar Tugas</h1>
+              <p>Design Team · tindak lanjut percakapan</p>
+            </div>
+            <button type="button" class="tasks-create-btn" data-open-task-modal aria-label="Buat tugas">＋</button>
+          </header>
+          <div class="screen-content tasks-content">
+            <div class="tasks-summary-card">
+              <span class="tasks-summary-label">Tugas aktif</span>
+              <strong id="mobileActiveTaskCount">0</strong>
+              <span>Pastikan setiap arahan punya penanggung jawab dan tenggat.</span>
+            </div>
+            <div class="tasks-list-heading">
+              <h2>Semua tugas</h2>
+              <span id="mobileTaskCount">0 tugas</span>
+            </div>
+            <div class="task-list" id="mobileTaskList" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="app-screen screen-saved" id="screen-saved">
+          <header class="tasks-header">
+            <button type="button" class="topbar-btn btn-back action-btn-area" data-next="screen-chat-list" aria-label="Kembali ke daftar obrolan">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <div>
+              <h1>Pesan Tersimpan</h1>
+              <p>Pesan penting, tersusun rapi untuk nanti.</p>
+            </div>
+            <span class="saved-count" id="mobileSavedCount">0</span>
+          </header>
+          <div class="screen-content tasks-content">
+            <div class="saved-list" id="mobileSavedList" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             DESKTOP WORKSPACE (Foto 3 & Foto 4 Layout)
+             ============================================== -->
+        <div class="desktop-workspace" id="desktopWorkspace">
+          <!-- COLUMN 1: SIDEBAR (Chat List + Quota Footer) -->
+          <aside class="desk-sidebar">
+            <!-- Search & Hamburger Header -->
+            <div class="desk-search-header">
+              <button type="button" class="desk-menu-btn" id="deskMenuBtn" title="Tampilkan/sembunyikan daftar obrolan" aria-pressed="false">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              </button>
+              <button type="button" class="desk-new-chat-btn" id="deskNewConversationBtn" aria-label="Buat percakapan baru">＋</button>
+              <div class="desk-search-box">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" placeholder="Cari Obrolan" id="deskSearchInput" aria-label="Cari obrolan">
+              </div>
+            </div>
+
+            <!-- Category Filter Tabs (Foto 4) -->
+            <div class="desk-filter-tabs">
+              <button type="button" class="desk-tab active" data-tab="all">All Chats</button>
+              <button type="button" class="desk-tab" data-tab="channels">Channels</button>
+              <button type="button" class="desk-tab" data-tab="directs">Directs</button>
+              <button type="button" class="desk-tab" data-tab="work">Work</button>
+            </div>
+
+            <!-- Conversation List -->
+            <div class="desk-chat-list scrollable">
+              <!-- Item 1: Design Team (Active / Selected) -->
+              <div class="desk-chat-item" data-chat="rina-wulandari" data-category="directs">
+                <div class="desk-avatar bg-emerald">
+                  <span>R</span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Rina Wulandari</span>
+                    <span class="desk-time">10:54</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">Foto dokumen.jpg</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2: Tim Marketing -->
+              <div class="desk-chat-item" data-chat="marketing" data-category="work">
+                <div class="desk-avatar bg-dark-team">
+                  <span>TM</span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Tim Marketing</span>
+                    <span class="desk-time">10:32</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">Budi Santoso: Laporan kampanye sudah si...</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3: Andi Pratama -->
+              <div class="desk-chat-item" data-chat="andi-pratama" data-category="directs">
+                <div class="desk-avatar bg-coral">
+                  <span>A</span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Andi Pratama</span>
+                    <span class="desk-time">09:56</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">File presentasi sudah saya revisi ya</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 4: Budi Santoso -->
+              <div class="desk-chat-item" data-chat="budi-santoso" data-category="directs">
+                <div class="desk-avatar bg-light-green">
+                  <span>B</span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Budi Santoso</span>
+                    <span class="desk-time">09:53</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">Siap, kita jadwalkan rapat besok</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 5: Dimas Arya -->
+              <div class="desk-chat-item" data-chat="dimas-arya" data-category="directs">
+                <div class="desk-avatar bg-blue">
+                  <span>D</span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Dimas Arya</span>
+                    <span class="desk-time">09:41</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">Sudah saya cek tadi ya, aman</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 6: Design Team -->
+              <div class="desk-chat-item active" data-chat="design-team" data-category="channels">
+                <div class="desk-avatar bg-emerald">
+                  <span>DT</span>
+                  <span class="desk-online-badge"></span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Design Team</span>
+                    <span class="desk-time">09:39</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">Anda: File desain Figma sudah diunggah</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 7: Dev Team Core -->
+              <div class="desk-chat-item" data-chat="dev-team-core" data-category="work">
+                <div class="desk-avatar bg-purple">
+                  <span>D</span>
+                </div>
+                <div class="desk-chat-meta">
+                  <div class="desk-chat-top">
+                    <span class="desk-name font-bold">Dev Team Core</span>
+                    <span class="desk-time">09:37</span>
+                  </div>
+                  <div class="desk-chat-bottom">
+                    <span class="desk-preview">Deployment sprint 12 sukses dilakukan...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workspace / Quota Card Footer (Foto 3 & Foto 4) -->
+            <div class="desk-quota-footer">
+              <div class="quota-header">
+                <span class="quota-title" id="deskPlanSummary"><span class="dot-green"></span> Design Team · Paket Plus</span>
+                <span class="quota-val" id="deskMemberCount">8/10 anggota</span>
+              </div>
+              <div class="quota-progress-track">
+                <div class="quota-progress-bar" id="deskMemberProgress" style="width: 80%;"></div>
+              </div>
+              <div class="quota-footer-sub">
+                <span class="quota-mode">Batas anggota sesuai paket</span>
+                <div class="quota-actions">
+                  <button type="button" class="quota-manage" id="deskPlanBtn">Kelola paket</button>
+                  <button type="button" class="quota-manage" id="deskInviteBtn">Undang</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- COLUMN 2: CHAT ROOM MAIN (Foto 3 & Foto 4) -->
+          <main class="desk-chat-main">
+            <!-- Topbar Header -->
+            <header class="desk-chat-header">
+              <div class="desk-header-left">
+                <div class="desk-avatar bg-emerald">
+                  <span>DT</span>
+                  <span class="desk-online-badge"></span>
+                </div>
+                <div class="desk-header-info">
+                  <div class="desk-header-title-row">
+                    <h2 class="desk-header-title">Design Team</h2>
+                    <span class="desk-free-pill" id="deskCurrentPlanBadge">Plus</span>
+                  </div>
+                  <span class="desk-header-status" id="deskHeaderMemberCount">8 anggota, 5 online</span>
+                </div>
+              </div>
+              <div class="desk-header-actions">
+                <button type="button" class="desk-view-tab" id="deskTasksBtn" aria-pressed="false">Tugas <span>3</span></button>
+                <button type="button" class="desk-tool-icon" data-open-profile title="Profil pengguna" aria-label="Buka profil pengguna">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </button>
+                <button type="button" class="desk-tool-icon" id="deskMessageSearchBtn" title="Cari pesan" aria-label="Cari pesan">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </button>
+                <button type="button" class="desk-tool-icon" id="deskVoiceCallBtn" title="Panggilan Suara" aria-pressed="false">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </button>
+                <button type="button" class="desk-tool-icon" id="deskChatMenuBtn" title="Opsi lainnya" aria-expanded="false">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/></svg>
+                </button>
+              </div>
+            </header>
+
+            <div class="message-search-inline desktop-message-search" id="deskMessageSearchBar" hidden>
+              <input type="search" id="deskMessageSearchInput" placeholder="Cari pesan" aria-label="Cari pesan">
+              <button type="button" data-close-message-search="desktop" aria-label="Tutup pencarian">×</button>
+            </div>
+
+            <section class="desk-tasks-view" id="deskTasksView" aria-label="Daftar tugas tim">
+              <div class="desk-tasks-heading">
+                <div>
+                  <h2>Daftar Tugas</h2>
+                  <p>Design Team · tindak lanjut percakapan</p>
+                </div>
+                <button type="button" class="desk-create-task-btn" data-open-task-modal aria-label="Buat tugas">＋</button>
+              </div>
+              <div class="desk-task-summary-card">
+                <div>
+                  <strong>Tugas aktif</strong>
+                  <p>Pastikan setiap arahan punya penanggung jawab dan tenggat.</p>
+                </div>
+                <span id="deskActiveTaskCount">2</span>
+              </div>
+              <div class="desk-task-list-heading">
+                <h3>Semua tugas</h3>
+                <span id="deskTaskCount">3 tugas</span>
+              </div>
+              <div class="task-list desk-task-list" id="deskTaskList" aria-live="polite"></div>
+            </section>
+
+            <section class="desk-saved-view" id="deskSavedView" aria-label="Pesan tersimpan">
+              <div class="desk-tasks-heading">
+                <div>
+                  <h2>Pesan Tersimpan</h2>
+                  <p>Kumpulan pesan penting dari percakapan tim.</p>
+                </div>
+              </div>
+              <div class="saved-list" id="deskSavedList" aria-live="polite"></div>
+            </section>
+
+            <!-- Chat Body with Doodle Wallpaper -->
+            <div class="desk-chat-body scrollable">
+              <div class="chat-date-divider">
+                <span class="date-pill">Hari ini</span>
+              </div>
+
+              <!-- Message 1: Alice -->
+              <div class="desk-msg-row incoming">
+                <div class="desk-msg-avatar bg-amber">A</div>
+                <div class="desk-msg-bubble">
+                  <span class="desk-sender-name text-amber">Alice</span>
+                  <p class="desk-msg-text">Hey Team! What's the latest update on the dashboard design?</p>
+                  <span class="desk-msg-time">12:14 PM</span>
+                </div>
+              </div>
+
+              <!-- Message 2: David -->
+              <div class="desk-msg-row incoming">
+                <div class="desk-msg-avatar bg-blue">D</div>
+                <div class="desk-msg-bubble">
+                  <span class="desk-sender-name text-blue">David</span>
+                  <p class="desk-msg-text">I think Bob was working on a mockup last night.</p>
+                  <span class="desk-msg-time">12:15 PM</span>
+                </div>
+              </div>
+
+              <!-- Message 3: Outgoing (Me) with Thread Link Button -->
+              <div class="desk-msg-row outgoing">
+                <div class="desk-msg-bubble green">
+                  <p class="desk-msg-text">I'll start reviewing this afternoon!<br>Dashboard mockup v4 sudah divalidasi.</p>
+                  <button type="button" class="message-task-action" data-create-task data-task-source="Dashboard mockup v4 sudah divalidasi.">
+                    <span aria-hidden="true">＋</span> Jadikan tugas
+                  </button>
+                  <button type="button" class="message-save-action" data-save-message data-save-key="design-root-desktop" data-save-chat="Design Team" data-save-text="Dashboard mockup v4 sudah divalidasi.">☆ Simpan pesan</button>
+                  <div class="mockup-preview-card">
+                    <div class="tablet-device-art">
+                      <svg viewBox="0 0 380 180" class="tablet-svg" preserveAspectRatio="xMidYMid meet">
+                        <rect x="12" y="12" width="356" height="156" rx="14" fill="#ffffff" stroke="#172033" stroke-width="3"/>
+                        <rect x="28" y="28" width="52" height="9" rx="3" fill="#087b59"/>
+                        <rect x="90" y="28" width="40" height="9" rx="3" fill="#e2e8f0"/>
+                        <rect x="140" y="28" width="34" height="9" rx="3" fill="#27344b"/>
+                        <path d="M28 132H350" stroke="#e7ece9" stroke-width="2"/>
+                        <path d="M28 132C70 130 82 114 118 116S166 126 210 101 270 72 298 89 329 126 350 72" fill="rgba(8,123,89,.1)" stroke="#15563f" stroke-width="3" stroke-linecap="round"/>
+                      </svg>
+                      <span class="file-tag-badge">dashboard_mockup_v4.fig</span>
+                    </div>
+                  </div>
+
+                  <!-- Clickable Thread Bar to Open Column 3 (Foto 4) -->
+                  <button type="button" class="desk-thread-cta action-btn-area" id="deskOpenThreadBtn">
+                    <div class="desk-thread-cta-left">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e6955" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      <span>3 balasan</span>
+                    </div>
+                    <span>Lihat</span>
+                  </button>
+
+                  <div class="desk-msg-footer">
+                    <span class="desk-msg-time">12:30 PM</span>
+                    <span class="desk-check-tick">✓</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Message 4: Alice -->
+              <div class="desk-msg-row incoming">
+                <div class="desk-msg-avatar bg-amber">A</div>
+                <div class="desk-msg-bubble">
+                  <span class="desk-sender-name text-amber">Alice</span>
+                  <p class="desk-msg-text">Perfect, let me know if you need help with the telemetry exports.</p>
+                  <span class="desk-msg-time">12:35 PM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Message Input Bar -->
+            <footer class="desk-chat-input-bar">
+              <button type="button" class="desk-input-tool" data-choose-file="deskAttachmentInput" title="Lampiran" aria-label="Lampiran">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </button>
+              <input type="text" placeholder="Tulis pesan..." id="deskMainInput" class="desk-text-input">
+              <button type="button" class="desk-input-tool" data-insert-emoji="deskMainInput" title="Emoji" aria-label="Emoji">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </button>
+              <button type="button" class="desk-input-tool" data-voice-note="deskMainInput" title="Pesan Suara" aria-label="Pesan Suara">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+              </button>
+              <button type="button" class="desk-send-btn action-btn-area" id="deskSendMainBtn" title="Kirim">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+              <input type="file" id="deskAttachmentInput" hidden aria-label="Pilih lampiran">
+            </footer>
+          </main>
+
+          <!-- COLUMN 3: DEDICATED THREAD PANEL (Foto 4) -->
+          <aside class="desk-thread-panel" id="deskThreadPanel">
+            <header class="desk-thread-header">
+              <div>
+                <h3 class="desk-thread-title">Dedicated Thread</h3>
+                <span class="desk-thread-subtitle">hybrid workspace</span>
+              </div>
+              <button type="button" class="desk-close-thread-btn" id="deskCloseThreadBtn" title="Tutup Thread">✕</button>
+            </header>
+
+            <div class="desk-thread-body scrollable">
+              <!-- Root message and replies from the reference design -->
+              <div class="desk-thread-root-card">
+                <div class="root-card-top">
+                  <div class="desk-avatar-sm bg-emerald"><span>A</span></div>
+                  <div class="root-author-meta">
+                    <div class="root-author-line">
+                      <span class="root-author font-bold">Anda</span>
+                      <span class="badge-author-role">Penulis</span>
+                    </div>
+                    <span class="root-time">12:30</span>
+                  </div>
+                </div>
+                <p class="root-text">I'll start reviewing this afternoon! Dashboard mockup v4 sudah divalidasi.</p>
+                <div class="figma-file-card">
+                  <div class="figma-icon-badge" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#167a58" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+                  </div>
+                  <div class="figma-info">
+                    <span class="figma-filename">mockup-dashboard-v4.fig</span>
+                    <span class="figma-meta">Figma Design System · 14.2 MB</span>
+                  </div>
+                  <button type="button" class="btn-download-file" aria-label="Unduh mockup dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+                  </button>
+                </div>
+                <div class="desk-thread-root-actions">
+                  <div class="reaction-row">
+                    <span class="reaction-pill">🔥 4</span>
+                    <span class="reaction-pill">🎯 2</span>
+                  </div>
+                  <button type="button" class="message-save-action" data-save-message data-save-key="design-root-thread-desktop" data-save-chat="Design Team" data-save-text="Dashboard mockup v4 sudah divalidasi.">☆ Simpan pesan</button>
+                </div>
+              </div>
+
+              <div class="desk-thread-divider">
+                <span class="font-bold">3 BALASAN</span>
+                <span class="subtle-text">Terbaru</span>
+              </div>
+
+              <div class="desk-thread-replies">
+                <div class="thread-item">
+                  <div class="desk-avatar-sm bg-purple"><span>B</span></div>
+                  <div class="thread-item-content">
+                    <div class="thread-item-header">
+                      <span class="thread-sender font-bold">Bob</span>
+                      <span class="thread-time">11:30</span>
+                    </div>
+                    <p class="thread-msg">I think we should move the CTA button to the center.</p>
+                  </div>
+                </div>
+
+                <div class="thread-item">
+                  <div class="desk-avatar-sm bg-coral"><span>S</span></div>
+                  <div class="thread-item-content">
+                    <div class="thread-item-header">
+                      <span class="thread-sender font-bold text-coral">Sarah</span>
+                      <span class="thread-time">11:32</span>
+                    </div>
+                    <p class="thread-msg">Agree, it gets lost on the left.</p>
+                    <span class="reaction-pill-sm">👀 1</span>
+                  </div>
+                </div>
+
+                <div class="thread-item">
+                  <div class="desk-avatar-sm bg-blue"><span>D</span></div>
+                  <div class="thread-item-content">
+                    <div class="thread-item-header">
+                      <span class="thread-sender font-bold text-blue">David</span>
+                      <span class="thread-time">11:36</span>
+                    </div>
+                    <p class="thread-msg">Centered looks way better on mobile viewport.</p>
+                    <span class="reaction-pill-sm">💯 2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thread Reply Input Bar -->
+            <footer class="desk-thread-input-bar">
+              <input type="text" placeholder="Balas dalam thread..." id="deskThreadInput" class="desk-text-input">
+              <button type="button" class="desk-input-tool" data-insert-emoji="deskThreadInput" title="Emoji" aria-label="Emoji">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </button>
+              <button type="button" class="desk-send-btn sm action-btn-area" id="deskSendThreadBtn" title="Kirim">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </footer>
+          </aside>
+        </div>
+
+      </div>
+
+      <!-- Device Bottom Bar Indicator -->
+      <div class="device-bottom-bar">
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </main>
+
+  <div class="task-modal-backdrop" id="taskModal" aria-hidden="true">
+    <form class="task-modal" id="taskForm">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">TUGAS TIM</span>
+          <h2>Buat tugas</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closeTaskModal" aria-label="Tutup">×</button>
+      </div>
+      <p class="task-source-note" id="taskSourceNote" hidden></p>
+      <label class="task-form-field">
+        <span>Judul tugas</span>
+        <input type="text" id="taskTitleInput" maxlength="100" required placeholder="Contoh: Review mockup dashboard">
+      </label>
+      <div class="task-form-row">
+        <label class="task-form-field">
+          <span>Penanggung jawab</span>
+          <select id="taskAssigneeInput" required>
+            <option value="Anda">Anda</option>
+            <option value="Alice">Alice</option>
+            <option value="David">David</option>
+            <option value="Bob">Bob</option>
+          </select>
+        </label>
+        <label class="task-form-field">
+          <span>Tenggat waktu</span>
+          <input type="date" id="taskDueInput" required>
+        </label>
+      </div>
+      <label class="task-form-field">
+        <span>Status</span>
+        <select id="taskStatusInput">
+          <option value="Belum dimulai">Belum dimulai</option>
+          <option value="Sedang dikerjakan">Sedang dikerjakan</option>
+          <option value="Selesai">Selesai</option>
+        </select>
+      </label>
+      <div class="task-modal-actions">
+        <button type="button" class="task-cancel-btn" id="cancelTaskModal">Batal</button>
+        <button type="submit" class="task-save-btn">Simpan tugas</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="task-modal-backdrop" id="inviteModal" aria-hidden="true">
+    <form class="task-modal invite-modal" id="inviteForm">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">DESIGN TEAM · PAKET PLUS</span>
+          <h2>Undang anggota</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closeInviteModal" aria-label="Tutup">×</button>
+      </div>
+      <p class="invite-capacity-note" id="inviteCapacityNote">8 dari 10 anggota terpakai. Paket Plus mendukung hingga 10 pengguna per tim.</p>
+      <label class="task-form-field">
+        <span>Alamat email anggota</span>
+        <input type="email" id="inviteEmailInput" required placeholder="nama@email.com">
+      </label>
+      <div class="task-modal-actions">
+        <button type="button" class="task-cancel-btn" id="cancelInviteModal">Batal</button>
+        <button type="submit" class="task-save-btn">Kirim undangan</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="task-modal-backdrop" id="conversationModal" aria-hidden="true">
+    <form class="task-modal" id="conversationForm">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">RUANG KERJA</span>
+          <h2>Percakapan baru</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closeConversationModal" aria-label="Tutup">×</button>
+      </div>
+      <label class="task-form-field">
+        <span>Jenis percakapan</span>
+        <select id="conversationTypeInput">
+          <option value="Pribadi">Pribadi</option>
+          <option value="Grup Divisi">Grup divisi</option>
+          <option value="Proyek">Proyek</option>
+        </select>
+      </label>
+      <label class="task-form-field">
+        <span>Nama percakapan</span>
+        <input type="text" id="conversationNameInput" maxlength="60" required placeholder="Contoh: Project Website">
+      </label>
+      <div class="task-modal-actions">
+        <button type="button" class="task-cancel-btn" id="cancelConversationModal">Batal</button>
+        <button type="submit" class="task-save-btn">Buat percakapan</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="task-modal-backdrop" id="planModal" aria-hidden="true">
+    <div class="task-modal plan-modal" role="dialog" aria-modal="true" aria-labelledby="planModalTitle">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">PAKET CAK.APP</span>
+          <h2 id="planModalTitle">Pilih paket tim</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closePlanModal" aria-label="Tutup">×</button>
+      </div>
+      <div class="plan-options">
+        <article class="plan-card">
+          <div><h3>Free</h3><p>Untuk penggunaan perorangan</p></div>
+          <strong>Rp0<span>/bulan</span></strong>
+          <ul><li>Chat, thread, dan tugas dasar</li><li>Tidak dapat mengundang anggota</li></ul>
+          <button type="button" data-select-plan="Free">Pilih Free</button>
+        </article>
+        <article class="plan-card plan-card-featured">
+          <span class="plan-recommended">UNTUK TIM KECIL</span>
+          <div><h3>Plus</h3><p>Kolaborasi rutin untuk tim</p></div>
+          <strong>Rp29.000<span>/tim/bulan</span></strong>
+          <ul><li>Undang hingga 10 pengguna</li><li>Penyimpanan & riwayat lebih besar</li><li>Pengelolaan tugas lebih lengkap</li></ul>
+          <button type="button" data-select-plan="Plus">Pilih Plus</button>
+        </article>
+        <article class="plan-card">
+          <div><h3>Pro</h3><p>Untuk koordinasi yang lebih kompleks</p></div>
+          <strong>Rp59.000<span>/tim/bulan</span></strong>
+          <ul><li>Kapasitas lebih tinggi dari Plus</li><li>Pengelolaan tim dan tugas lebih rinci</li><li>Batas anggota ditetapkan setelah uji kapasitas</li></ul>
+          <button type="button" data-select-plan="Pro">Pilih Pro</button>
+        </article>
+      </div>
+      <p class="plan-footnote">Harga per tim per bulan. Pembayaran pada prototipe ini hanya simulasi.</p>
+    </div>
+  </div>
+
+  <div class="task-modal-backdrop" id="paymentModal" aria-hidden="true">
+    <form class="task-modal payment-modal" id="paymentForm">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">LANGGANAN TIM</span>
+          <h2>Pembayaran simulasi</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closePaymentModal" aria-label="Tutup">×</button>
+      </div>
+      <div class="invoice-summary">
+        <span id="paymentPlanName">Paket Plus</span>
+        <strong id="paymentPlanPrice">Rp29.000 / tim / bulan</strong>
+        <small>Invoice demo CAK-DEMO-001 · Belum dibayar</small>
+      </div>
+      <fieldset class="payment-methods">
+        <legend>Metode pembayaran</legend>
+        <label><input type="radio" name="paymentMethod" value="QRIS" checked> QRIS</label>
+        <label><input type="radio" name="paymentMethod" value="Transfer bank / Virtual Account"> Transfer bank / Virtual Account</label>
+      </fieldset>
+      <p class="payment-disclaimer">Tidak ada transaksi sungguhan. Paket aktif hanya untuk sesi demo ini.</p>
+      <div class="task-modal-actions">
+        <button type="button" class="task-cancel-btn" id="cancelPaymentModal">Kembali</button>
+        <button type="submit" class="task-save-btn">Simulasikan pembayaran berhasil</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="task-modal-backdrop" id="profileModal" aria-hidden="true">
+    <section class="task-modal profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">AKUN CAK.APP</span>
+          <h2 id="profileModalTitle">Profil pengguna</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closeProfileModal" aria-label="Tutup">×</button>
+      </div>
+      <div class="profile-summary">
+        <div class="profile-avatar">N</div>
+        <div><strong>Pengguna CAK.APP</strong><span id="profilePhone">+62 815 720 6236</span></div>
+      </div>
+      <div class="profile-plan-row">
+        <span>Paket aktif</span>
+        <strong id="profilePlan">Plus</strong>
+      </div>
+      <button type="button" class="profile-settings-btn" id="profileSettingsBtn">
+        <span class="profile-settings-icon" aria-hidden="true">⚙</span>
+        <span><strong>Pengaturan</strong><small>Pengaturan akun &amp; privasi</small></span>
+        <span class="profile-settings-chevron" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="profile-manage-btn" id="profileManagePlanBtn">Lihat paket dan pembayaran</button>
+    </section>
+  </div>
+
+  <div class="task-modal-backdrop" id="settingsModal" aria-hidden="true">
+    <section class="task-modal settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+      <div class="task-modal-heading">
+        <div>
+          <span class="task-modal-eyebrow">AKUN CAK.APP</span>
+          <h2 id="settingsModalTitle">Pengaturan</h2>
+        </div>
+        <button type="button" class="task-modal-close" id="closeSettingsModal" aria-label="Tutup">×</button>
+      </div>
+      <label class="settings-toggle-row">
+        <span><strong>Notifikasi pesan</strong><small>Preferensi demo untuk notifikasi obrolan</small></span>
+        <input type="checkbox" id="settingsNotificationsToggle" checked>
+      </label>
+      <label class="settings-toggle-row">
+        <span><strong>Tanda pesan dibaca</strong><small>Tampilkan status baca pada pesan terkirim</small></span>
+        <input type="checkbox" id="settingsReadReceiptsToggle" checked>
+      </label>
+    </section>
+  </div>
+
+  <div class="chat-action-menu" id="chatActionMenu" role="menu" aria-label="Menu obrolan" hidden>
+    <button type="button" role="menuitem" data-menu-action="archive">Obrolan diarsipkan</button>
+    <button type="button" role="menuitem" data-menu-action="tasks">Daftar tugas</button>
+    <button type="button" role="menuitem" data-menu-action="saved">Pesan tersimpan</button>
+    <button type="button" role="menuitem" data-menu-action="plans">Paket dan pembayaran</button>
+    <button type="button" role="menuitem" data-menu-action="invite">Undang anggota</button>
+    <button type="button" role="menuitem" data-menu-action="profile">Profil</button>
+  </div>
+  <div class="chat-action-menu" id="threadActionMenu" role="menu" aria-label="Menu thread" hidden>
+    <button type="button" role="menuitem" data-menu-action="thread-task">Buat tugas dari thread</button>
+    <button type="button" role="menuitem" data-menu-action="thread-save">Simpan pesan utama</button>
+  </div>
+
+  <div class="task-modal-backdrop" id="archiveModal" aria-hidden="true">
+    <section class="task-modal" role="dialog" aria-modal="true" aria-labelledby="archiveModalTitle">
+      <div class="task-modal-heading">
+        <div><span class="task-modal-eyebrow">ARSIP OBROLAN</span><h2 id="archiveModalTitle">Obrolan diarsipkan</h2></div>
+        <button type="button" class="task-modal-close" id="closeArchiveModal" aria-label="Tutup">×</button>
+      </div>
+      <button type="button" class="archive-chat-option" data-open-archived-chat="Project Alpha">Project Alpha <span>Buka obrolan</span></button>
+      <button type="button" class="archive-chat-option" data-open-archived-chat="Info Komunitas">Info Komunitas <span>Buka obrolan</span></button>
+    </section>
+  </div>
+
+  <!-- Interactive Toast Notification -->
+  <div class="app-toast" id="appToast">
+    <span class="toast-message" id="toastMessage">Pesan</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
